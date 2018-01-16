@@ -2,12 +2,28 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <title>{% block title %}EVE Tools{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/base.css') }}">
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block nav %}
+        <nav>
+            <ul class="topLinks .navbar-fixed-top">
+                <li><a href=" {{ path('home_page') }}">Home</a></li>
+                <li><a href="#">Blueprint Calculator</a></li>
+                <li><a href="#">Ore Chart</a></li>
+            </ul>
+        </nav>
+    {% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %}
+        <div class="footer">
+            <p class="footer-text">Made By T.Hasler<br><a href="http://www.linkedin.com/in/timothy-hasler">LinkedIn</a></p>
+        </div>{% endblock %}
+    {% block javascripts %}{% endblock %}
     </body>
 </html>

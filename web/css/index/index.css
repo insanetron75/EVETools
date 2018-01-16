@@ -1,0 +1,35 @@
+h1 {
+    text-align: center;
+    color: wheat;
+    font-size: -webkit-xxx-large;
+    font-weight: bold;
+}
+
+table {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto 0 auto;
+    padding: 5% 5% 5% 5%;
+}
+
+table th {
+    width: 47.5%;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bold;
+    text-decoration: underline;
+    color: wheat;
+    background-color: grey;
+}
+
+table td {
+    width: 47.5%;
+    text-align: center;
+    color: white;
+    background-color: grey;
+}
+
+.spacer-cell {
+    width: 5%;
+    background-color: transparent;
+}

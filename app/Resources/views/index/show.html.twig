@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/index/index.css') }}">
+{% endblock %}
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>EVE Tools</h1>
+            </div>
+            <div id="features-table">
+                <table>
+                    <tr>
+                        <th>
+                            Blueprint Calculator
+                        </th>
+                        <th class="spacer-cell"></th>
+                        <th>
+                            Ore Chart
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            The Blueprint Calculator can be used to work out the material or component requirements for any blueprint in the game.<br><br>
+                            It is also customisable with your skills and facility bonuses<br>
+                        </td>
+                        <th class="spacer-cell"></th>
+                        <td>
+                            The Ore Chart shows you the isk/m3 of ore you refine, showing you the refined amounts and the unrefined amounts.<br><br>
+                            You can alter the market region and your skills to get the most accurate results!<br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
