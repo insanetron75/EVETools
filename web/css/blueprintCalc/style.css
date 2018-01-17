@@ -1,37 +1,64 @@
-#blueprintForm {
+form {
     width: 30%;
     margin-left: 15px;
     border-radius: 25px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 1% 1% 1% 1%;
     background-color: grey;
 }
 
-#blueprintForm input[name=blueprintName] {
+#blueprint_form_blueprint_name {
     width: 100%;
     padding: 1% 1% 1% 1%;
-    margin: 8px 0;
-    display: inline-block;
+    margin: 1% 0;
     border: 1px solid black;
     border-radius: 25px;
     box-sizing: border-box;
 }
 
-#blueprintForm input[name=runs], input[name=mebonus], input[name=tebonus] {
+#blueprint_form_material_efficiency {
+    width: 25%;
+    margin: 1% 0 0 5%;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#blueprint_form_time_efficiency {
+    width: 25%;
+    margin: 1% 0 0 6%;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+#blueprint_form_time_efficiency_bonus {
     width: 15%;
-    margin: 8px 0;
+    margin: 1% 0 0 5%;
     border: 1px solid black;
     border-radius: 4px;
 
 }
 
-#blueprintForm select {
+#blueprint_form_runs {
+    width: 15%;
+    margin: 1% 0 0 2%;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#blueprint_form_industrial_complex {
+    margin: 1% 0 0 2%;
+}
+
+#blueprint_form_t1_rig,
+#blueprint_form_t2_rig{
+    margin: 1% 0 0 22.5%;
+}
+
+form select {
     margin: 8px;
     border: 1px solid black;
     border-radius: 4px;
 }
 
-#blueprintForm input[type=submit] {
+form input[type=submit] {
     background-color: green;
     color: white;
     padding: 2% 2% 2% 2%;
@@ -40,4 +67,16 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.mats_table{
+    margin-top: 15px;
+    margin-left: 15px;
+    border-radius: 25px;
+    background-color: grey;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
 }

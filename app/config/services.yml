@@ -29,6 +29,10 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    form.type.datalist_type:
+        class: Acme\Form\Type\DatalistType
+        tags:
+            -  { name: form.type, alias: datalist }
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:
