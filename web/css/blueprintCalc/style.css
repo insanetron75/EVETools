@@ -1,0 +1,43 @@
+#blueprintForm {
+    width: 30%;
+    margin-left: 15px;
+    border-radius: 25px;
+    padding-left: 15px;
+    padding-right: 15px;
+    background-color: grey;
+}
+
+#blueprintForm input[name=blueprintName] {
+    width: 100%;
+    padding: 1% 1% 1% 1%;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 25px;
+    box-sizing: border-box;
+}
+
+#blueprintForm input[name=runs], input[name=mebonus], input[name=tebonus] {
+    width: 15%;
+    margin: 8px 0;
+    border: 1px solid black;
+    border-radius: 4px;
+
+}
+
+#blueprintForm select {
+    margin: 8px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+#blueprintForm input[type=submit] {
+    background-color: green;
+    color: white;
+    padding: 2% 2% 2% 2%;
+    margin: 2%;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

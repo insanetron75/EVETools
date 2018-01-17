@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/blueprintCalc/style.css') }}">
+{% endblock %}
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1>Blueprint Calculator</h1>
+            </div>
+        </div>
+        <div id="form">
+            <form id="blueprintForm" method="post">
+                <label for="blueprintName">Blueprint:</label>
+                <input id="blueprintName" type="text" list="blueprintList" name="blueprintName" size="45" maxlength="45" placeholder="search blueprint"/>
+                <datalist id='blueprintList'>
+                    {% for blueprint in blueprints %}
+                        <option value="{{ blueprint }}"></option>
+                    {% endfor %}
+                </datalist>
+                <div id="list"></div>
+                <label for="me">ME:</label>
+                <select id="me" name="me">
+                    <option value=0>0</option>
+                    <option value=1>1</option>
+                    <option value=2>2</option>
+                    <option value=3>3</option>
+                    <option value=4>4</option>
+                    <option value=5>5</option>
+                    <option value=6>6</option>
+                    <option value=7>7</option>
+                    <option value=8>8</option>
+                    <option value=9>9</option>
+                    <option value=10>10</option>
+                </select>
+                <label for="te">TE:</label>
+                <select id="me" name="te">
+                    <option value=0>0</option>
+                    <option value=2>2</option>
+                    <option value=4>4</option>
+                    <option value=6>6</option>
+                    <option value=8>8</option>
+                    <option value=10>10</option>
+                    <option value=12>12</option>
+                    <option value=14>14</option>
+                    <option value=16>16</option>
+                    <option value=18>18</option>
+                    <option value=20>20</option>
+                </select>
+                <label for="runs">Runs:</label>
+                <input type="text" name="runs" placeholder="1">
+                <p><u><b>Facility Bonus</b></u></p>
+                <label for="indyComplex">Industrial Complex:</label>
+                <input id="indyComplex" type="checkbox" name="indyComplexCB" placeholder="0"><br>
+                <label for="t1RigCb">T1 Rig:</label>
+                <input type="checkbox" id="t1RigCb" name="t1RigCb" placeholder="0">
+                <label for="t2RigCb">T2 Rig:</label>
+                <input type="checkbox" id="t2rigcb" name="t2RigCb" placeholder="0">
+                <label for="teBonus">TE Bonus:</label>
+                <input type="text" id="teBonus" name="tebonus" placeholder="0"><br>
+                <input id ="go" type="submit" value="Go">
+                <input id="copy" type="submit" value="Toggle Copy Friendly">
+            </form>
+        </div>
+        <div id="results">
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/BlueprintCalc/calculator.js') }}"></script>
+{% endblock %}
+
