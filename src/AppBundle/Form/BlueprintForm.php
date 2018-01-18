@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Timmy
- * Date: 17/01/2018
- * Time: 00:33
- */
-
 namespace AppBundle\Form;
 
 use AppBundle\Form\Type\DataListType;
@@ -23,7 +16,7 @@ class BlueprintForm extends AbstractType
 
         $builder->add('blueprint_name', DataListType::class, [
             'label' => 'Blueprint Name',
-            'data' => $options['data']
+            'data'  => $options['data']
         ])
                 ->add(
                     'material_efficiency',
@@ -72,12 +65,25 @@ class BlueprintForm extends AbstractType
                     NumberType::class,
                     [
                         'label' => 'Runs',
-                    ])
+                    ]);
+
+        /* This is to be added when facility bonuses work
+        $builder->add(
+            'security_status',
+            ChoiceType::class,
+            [
+                'label'   => 'System Security Status',
+                'choices' => [
+                    'High Sec' => 'high_sec',
+                    'Low Sec'  => 'low_sec',
+                    'Null/wh'  => 'null'
+                ]
+            ])
                 ->add(
                     'industrial_complex',
                     CheckboxType::class,
                     [
-                        'label' => 'Industrial Complex',
+                        'label'    => 'Industrial Complex',
                         'required' => false
                     ]
                 )
@@ -85,7 +91,7 @@ class BlueprintForm extends AbstractType
                     't1_rig',
                     CheckboxType::class,
                     [
-                        'label' => 'T1 Rig',
+                        'label'    => 'T1 Rig',
                         'required' => false
                     ]
                 )
@@ -93,7 +99,7 @@ class BlueprintForm extends AbstractType
                     't2_rig',
                     CheckboxType::class,
                     [
-                        'label' => 'T2 Rig',
+                        'label'    => 'T2 Rig',
                         'required' => false
                     ]
                 )
@@ -101,10 +107,10 @@ class BlueprintForm extends AbstractType
                     'time_efficiency_bonus',
                     NumberType::class,
                     [
-                        'label' => 'TE Bonus',
+                        'label'    => 'TE Bonus',
                         'required' => false
                     ]
-                );
+                );*/
     }
 
     public function configureOptions(OptionsResolver $resolver)
