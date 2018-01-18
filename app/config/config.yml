@@ -42,6 +42,7 @@ twig:
     strict_variables: '%kernel.debug%'
     form_themes:
             - 'Form/fields.html.twig'
+            - 'bootstrap_3_layout.html.twig'
 # Doctrine Configuration
 doctrine:
     dbal:

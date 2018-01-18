@@ -3,6 +3,10 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/blueprintCalc/style.css') }}">
 {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/BlueprintCalc/calculator.js') }}"></script>
+{% endblock %}
 {% block body %}
     <div id="wrapper">
         <div id="container">
@@ -10,34 +14,42 @@
                 <h1>Blueprint Calculator</h1>
             </div>
         </div>
-        <div>
+        <div id="form_div">
             {{ form_start(form) }}
             {{ form_widget(form) }}
             <button type="submit" class="btn btn-success">Go <span class="fa fa-arrow-right"></span></button>
+            <button type="button" class="btn btn-success copy-btn">Copy Paste <span class="fa fa-clipboard"></span></button>
             {{ form_end(form) }}
         </div>
-        <div id="results">
-            <div>
-                <table class="'mats_table">
-                    {% if results is iterable %}
-
+        <div id="results" class="panel panel-default">
+            <table id="'mats_table" class="table table-bordered">
+                {% if results is iterable %}
+                    <caption>Materials Table</caption>
+                    <tr>
+                        <th>Material Name</th>
+                        <th>Quantity</th>
+                        <th class="table-hide">Volume (m3)</th>
+                    </tr>
+                    {% for material in results %}
                         <tr>
-                            <th>Material Name</th>
-                            <th>Quantity</th>
+                            <td class="text-col">
+                                {{ material['name'] }}
+                            </td>
+                            <td>
+                                {{ material['quantity'] }}
+                            </td>
+                            <td class="table-hide">
+                                {{ material['volume'] }}
+                            </td>
                         </tr>
-                        {% for material in results %}
-                            <tr>
-                                <td>
-                                    {{ material['name'] }}
-                                </td>
-                                <td>
-                                    {{ material['quantity'] }}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                </table>
-            </div>
+                    {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td>Total Volume:</td>
+                        <td>{{ totalVolume }}</td>
+                    </tr>
+                {% endif %}
+            </table>
         </div>
     </div>
 {% endblock %}

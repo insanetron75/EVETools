@@ -21,7 +21,10 @@ class BlueprintForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('blueprint_name', DataListType::class, ['data' => $options['data']])
+        $builder->add('blueprint_name', DataListType::class, [
+            'label' => 'Blueprint Name',
+            'data' => $options['data']
+        ])
                 ->add(
                     'material_efficiency',
                     ChoiceType::class,
