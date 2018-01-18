@@ -8,12 +8,13 @@ form {
     display: table-row;
 }
 
-#results {
+#minerals, #components {
     margin-left: 1%;
     float: left;
     display: table-row;
     border-radius: 25px;
 }
+
 .panel {
     background-color: grey;
 }
@@ -28,14 +29,3 @@ caption {
     font-weight: bold;
 }
 
-.mats_table{
-    margin-top: 15px;
-    margin-left: 15px;
-    border-radius: 25px;
-    background-color: grey;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-align: center;
-}

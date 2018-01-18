@@ -26,11 +26,13 @@ class BlueprintController extends Controller
         $form        = $this->createForm(BlueprintForm::class, null, ['data' => $blueprints]);
         $params      = $request->request->get('blueprint_form');
         $results     = null;
-        $totalVolume = 0;
+        $totalVolumeMin = 0;
+        $totalVolumeComp = 0;
 
         if ($params) {
             $results     = $this->getRequestResults($params);
-            $totalVolume = $this->calculateTotalVolume($results);
+            $totalVolumeMin = $this->calculateTotalVolume($results['minerals']);
+            $totalVolumeComp = $this->calculateTotalVolume($results['components']);
         }
 
         return $this->render(
@@ -38,7 +40,8 @@ class BlueprintController extends Controller
             [
                 'form'        => $form->createView(),
                 'results'     => $results,
-                'totalVolume' => $totalVolume
+                'totalVolumeMin' => $totalVolumeMin,
+                'totalVolumeComp' => $totalVolumeComp
             ]
         );
     }
@@ -85,34 +88,60 @@ class BlueprintController extends Controller
     protected function getRequestResults(array $params)
     {
         $objectManger = $this->getDoctrine()->getManager();
+        $materials    = $this->getBlueprintMaterials($params['blueprint_name'], $objectManger);
+        $minerals     = [];
+        $components   = [];
+
+        /** @var Industryactivitymaterials $thisMaterial */
+        foreach ($materials as $thisMaterial) {
+            $materialName     = $this->getMaterialName($thisMaterial, $objectManger);
+            $quantity         = $thisMaterial->getQuantity() * $params['runs'];
+            $weightedQuantity = $this->getWeightedQuantity($quantity, $params);
+            $volume           = $this->getMaterialVolume($thisMaterial, $weightedQuantity);
+            if (strpos($materialName, 'Capital') !== false || strpos($materialName, 'Structure') !== false) {
+                $minerals   = $this->addSubMaterials($thisMaterial, $minerals, $params, $objectManger);
+                $components = $this->addMaterialToArray(
+                    $materialName,
+                    $weightedQuantity,
+                    $volume,
+                    $components
+                );
+            } else {
+                $minerals = $this->addMaterialToArray(
+                    $materialName,
+                    $weightedQuantity,
+                    $volume,
+                    $minerals
+                );
+            }
+        }
+        $minerals = $this->addNumberStrings($minerals);
+        if (!empty($components)) {
+            $components = $this->addNumberStrings($components);
+        }
+
+        return ['minerals' => $minerals, 'components' => $components];
+    }
+
+    /**
+     * @param string        $blueprintName
+     * @param ObjectManager $objectManager
+     *
+     * @return Industryactivitymaterials[]
+     */
+    protected function getBlueprintMaterials($blueprintName, ObjectManager $objectManager)
+    {
         /** @var Invtypes $type */
-        $type = $objectManger->getRepository(Invtypes::class)->findOneBy(
-            ['typename' => $params['blueprint_name']]
+        $type = $objectManager->getRepository(Invtypes::class)->findOneBy(
+            ['typename' => $blueprintName]
         );
 
-        /** @var Industryactivitymaterials[] $materials */
-        $materials = $objectManger->getRepository(Industryactivitymaterials::class)->findBy(
+        return $objectManager->getRepository(Industryactivitymaterials::class)->findBy(
             [
                 'blueprinttypeid' => $type->getTypeid(),
                 'activityid'      => 1 // building
             ]
         );
-
-        $returnMaterials = [];
-        foreach ($materials as $thisMaterial) {
-            $materialName      = $this->getMaterialName($thisMaterial, $objectManger);
-            $quantity          = $thisMaterial->getQuantity() * $params['runs'];
-            $weightedQuantity  = $this->getWeightedQuantity($quantity, $params);
-            $volume            = $this->getMaterialVolume($thisMaterial, $weightedQuantity);
-            $returnMaterials[] = [
-                'name'      => $materialName,
-                'quantity'  => number_format($weightedQuantity),
-                'volume'    => number_format($volume, 2),
-                'volumeInt' => $volume
-            ];
-        }
-
-        return $returnMaterials;
     }
 
     protected function getMaterialName(Industryactivitymaterials $material, ObjectManager $objectManager)
@@ -162,7 +191,60 @@ class BlueprintController extends Controller
         foreach ($materials as $thisMaterial) {
             $totalVolume += $thisMaterial['volumeInt'];
         }
-
         return number_format($totalVolume, 2);
+    }
+
+    protected function addMaterialToArray(
+        $materialName,
+        $quantity,
+        $volume,
+        array $returnMaterials
+    ) {
+        if (key_exists($materialName, $returnMaterials)) {
+            $returnMaterials[$materialName]['quantityInt'] += $quantity;
+            $returnMaterials[$materialName]['volumeInt'] += $volume;
+
+            return $returnMaterials;
+        } else {
+            $returnMaterials[$materialName] = [
+                'name'        => $materialName,
+                'quantityInt' => $quantity,
+                'volumeInt'   => $volume
+            ];
+
+            return $returnMaterials;
+        }
+    }
+
+    protected function addSubMaterials(
+        Industryactivitymaterials $component,
+        array $minerals,
+        array $params,
+        ObjectManager $objectManager
+    ) {
+        $blueprintName = $this->getMaterialName($component, $objectManager);
+        $blueprintName = "$blueprintName Blueprint";
+
+        $materials     = $this->getBlueprintMaterials($blueprintName, $objectManager);
+        /** @var Industryactivitymaterials $thisMaterial */
+        foreach ($materials as $thisMaterial) {
+            $materialName     = $this->getMaterialName($thisMaterial, $objectManager);
+            $quantity         = $thisMaterial->getQuantity();
+            $weightedQuantity = $this->getWeightedQuantity($quantity, $params);
+            $volume           = $this->getMaterialVolume($thisMaterial, $weightedQuantity);
+            $minerals         = $this->addMaterialToArray($materialName, $weightedQuantity, $volume, $minerals);
+        }
+
+        return $minerals;
+    }
+
+    protected function addNumberStrings(array $materials)
+    {
+        foreach ($materials as $name => $thisMaterial) {
+            $materials[$name]['quantity'] = number_format($thisMaterial['quantityInt']);
+            $materials[$name]['volume']   = number_format($thisMaterial['volumeInt'], 2);
+        }
+
+        return $materials;
     }
 }
