@@ -21,60 +21,62 @@
             <button type="button" class="btn btn-success copy-btn">Copy Paste <span class="fa fa-clipboard"></span></button>
             {{ form_end(form) }}
         </div>
-        <div id="minerals" class="panel panel-default">
-            <table id="'min-table" class="table table-bordered">
-                {% if results['minerals'] is iterable %}
-                    <caption>Materials Table</caption>
-                    <tr>
-                        <th>Material Name</th>
-                        <th>Quantity</th>
-                        <th class="table-hide">Volume (m3)</th>
-                    </tr>
-                    {% for mineral in results['minerals'] %}
+        {% if results is iterable %}
+            <div id="minerals" class="panel panel-default">
+                <table id="'min-table" class="table table-bordered">
+                    {% if results['minerals'] is iterable %}
+                        <caption>Materials Table</caption>
                         <tr>
-                            <td class="text-col">
-                                {{ mineral['name'] }}
-                            </td>
-                            <td>
-                                {{ mineral['quantity'] }}
-                            </td>
-                            <td class="table-hide">
-                                {{ mineral['volume'] }}
-                            </td>
+                            <th>Material Name</th>
+                            <th>Quantity</th>
+                            <th class="table-hide">Volume (m3)</th>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <td></td>
-                        <td>Total Volume:</td>
-                        <td>{{ totalVolumeMin }}</td>
-                    </tr>
-                {% endif %}
-            </table>
-        </div>
-        <div id="components" class="panel panel-default">
-            <table id="comp-table" class="table table-bordered">
-                {% if results['components'] is iterable %}
-                    <caption>Components Table</caption>
-                    <tr>
-                        <th>Component Name</th>
-                        <th>Quantity</th>
-                        <th class="table-hide">Volume (m3)</th>
-                    </tr>
-                    {% for component in results['components'] %}
+                        {% for mineral in results['minerals'] %}
+                            <tr>
+                                <td class="text-col">
+                                    {{ mineral['name'] }}
+                                </td>
+                                <td>
+                                    {{ mineral['quantity'] }}
+                                </td>
+                                <td class="table-hide">
+                                    {{ mineral['volume'] }}
+                                </td>
+                            </tr>
+                        {% endfor %}
                         <tr>
-                            <td>{{ component['name'] }}</td>
-                            <td>{{ component['quantity'] }}</td>
-                            <td>{{ component['volume'] }}</td>
+                            <td></td>
+                            <td>Total Volume:</td>
+                            <td>{{ totalVolumeMin }}</td>
                         </tr>
-                    {% endfor %}
-                    <tr>
-                        <td></td>
-                        <td>Total Volume:</td>
-                        <td>{{ totalVolumeComp }}</td>
-                    </tr>
-                {% endif %}
-            </table>
-        </div>
+                    {% endif %}
+                </table>
+            </div>
+            <div id="components" class="panel panel-default">
+                <table id="comp-table" class="table table-bordered">
+                    {% if results['components'] is iterable %}
+                        <caption>Components Table</caption>
+                        <tr>
+                            <th>Component Name</th>
+                            <th>Quantity</th>
+                            <th class="table-hide">Volume (m3)</th>
+                        </tr>
+                        {% for component in results['components'] %}
+                            <tr>
+                                <td>{{ component['name'] }}</td>
+                                <td>{{ component['quantity'] }}</td>
+                                <td>{{ component['volume'] }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td></td>
+                            <td>Total Volume:</td>
+                            <td>{{ totalVolumeComp }}</td>
+                        </tr>
+                    {% endif %}
+                </table>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
 
