@@ -49,6 +49,86 @@ class Industryactivitymaterials
      */
     private $id;
 
+    /**
+     * @return int
+     */
+    public function getBlueprinttypeid()
+    {
+        return $this->blueprinttypeid;
+    }
+
+    /**
+     * @param int $blueprinttypeid
+     */
+    public function setBlueprinttypeid($blueprinttypeid)
+    {
+        $this->blueprinttypeid = $blueprinttypeid;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActivityid()
+    {
+        return $this->activityid;
+    }
+
+    /**
+     * @param bool $activityid
+     */
+    public function setActivityid($activityid)
+    {
+        $this->activityid = $activityid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMaterialtypeid()
+    {
+        return $this->materialtypeid;
+    }
+
+    /**
+     * @param int $materialtypeid
+     */
+    public function setMaterialtypeid($materialtypeid)
+    {
+        $this->materialtypeid = $materialtypeid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
 }
 

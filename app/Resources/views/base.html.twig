@@ -8,13 +8,16 @@
             <link rel="stylesheet" href="{{ asset('vendor/fontawesome/css/font-awesome.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/base.css') }}">
         {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery.min.js') }}"></script>
+        {% endblock %}
     </head>
     <body>
     {% block nav %}
         <nav>
             <ul class="topLinks .navbar-fixed-top">
                 <li><a href=" {{ path('home_page') }}">Home</a></li>
-                <li><a href="#">Blueprint Calculator</a></li>
+                <li><a href="{{ path('blueprint_calculator') }}">Blueprint Calculator</a></li>
                 <li><a href="#">Ore Chart</a></li>
             </ul>
         </nav>
@@ -23,7 +26,7 @@
     {% block footer %}
         <div class="footer">
             <p class="footer-text">Made By T.Hasler<br><a href="http://www.linkedin.com/in/timothy-hasler">LinkedIn</a></p>
-        </div>{% endblock %}
-    {% block javascripts %}{% endblock %}
+        </div>
+    {% endblock %}
     </body>
 </html>

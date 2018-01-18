@@ -28,6 +28,38 @@ class Industryblueprints
      */
     private $blueprinttypeid;
 
+    /**
+     * @return int
+     */
+    public function getMaxproductionlimit()
+    {
+        return $this->maxproductionlimit;
+    }
+
+    /**
+     * @param int $maxproductionlimit
+     */
+    public function setMaxproductionlimit($maxproductionlimit)
+    {
+        $this->maxproductionlimit = $maxproductionlimit;
+    }
+
+    /**
+     * @return int
+     */
+    public function getBlueprinttypeid()
+    {
+        return $this->blueprinttypeid;
+    }
+
+    /**
+     * @param int $blueprinttypeid
+     */
+    public function setBlueprinttypeid($blueprinttypeid)
+    {
+        $this->blueprinttypeid = $blueprinttypeid;
+    }
+
 
 }
 

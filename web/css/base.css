@@ -1,5 +1,13 @@
 body {
-    background-image: url(../images/background.jpg)
+    background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
+}
+
+h1 {
+    text-align: center;
+    color: wheat;
+    font-size: -webkit-xxx-large;
+    font-weight: bold;
 }
 
 .topLinks {
@@ -51,7 +59,7 @@ nav ul li a {
 }
 
 nav ul ul {
-    background: #5f6975; border-radius: 0px; padding: 0;
+    background: #5f6975; border-radius: 0; padding: 0;
     position: absolute; top: 100%;
 }
 
