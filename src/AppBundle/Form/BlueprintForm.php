@@ -39,7 +39,8 @@ class BlueprintForm extends AbstractType
                                 '10' => 10
                             ]
                     ])
-                ->add(
+                // Remove until build time is implemented
+                /*->add(
                     'time_efficiency',
                     ChoiceType::class,
                     [
@@ -59,26 +60,24 @@ class BlueprintForm extends AbstractType
                                 '18' => 18,
                                 '20' => 20
                             ]
-                    ])
+                    ])*/
                 ->add(
                     'runs',
                     NumberType::class,
                     [
                         'label' => 'Runs',
-                    ]);
-
-        /* This is to be added when facility bonuses work
-        $builder->add(
-            'security_status',
-            ChoiceType::class,
-            [
-                'label'   => 'System Security Status',
-                'choices' => [
-                    'High Sec' => 'high_sec',
-                    'Low Sec'  => 'low_sec',
-                    'Null/wh'  => 'null'
-                ]
-            ])
+                    ])
+                ->add(
+                    'security_status',
+                    ChoiceType::class,
+                    [
+                        'label'   => 'System Security Status',
+                        'choices' => [
+                            'High Sec' => 'high_sec',
+                            'Low Sec'  => 'low_sec',
+                            'Null/wh'  => 'null'
+                        ]
+                    ])
                 ->add(
                     'industrial_complex',
                     CheckboxType::class,
@@ -102,15 +101,7 @@ class BlueprintForm extends AbstractType
                         'label'    => 'T2 Rig',
                         'required' => false
                     ]
-                )
-                ->add(
-                    'time_efficiency_bonus',
-                    NumberType::class,
-                    [
-                        'label'    => 'TE Bonus',
-                        'required' => false
-                    ]
-                );*/
+                );
     }
 
     public function configureOptions(OptionsResolver $resolver)
