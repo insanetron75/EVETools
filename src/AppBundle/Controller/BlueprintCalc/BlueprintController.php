@@ -13,6 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class BlueprintController extends Controller
 {
+    // 1% bonus
+    const INDUSTRIAL_COMPLEX_MODIFIER = 0.99;
+
     /**
      * @Route("/blueprintCalculator", name="blueprint_calculator")
      * @param Request $request
@@ -164,6 +167,9 @@ class BlueprintController extends Controller
     {
         $blueprintMaterialEfficiency = 1 - ($params['material_efficiency'] / 100);
         $totalQuantity               = $quantity * $blueprintMaterialEfficiency;
+        if (isset($params['industrial_complex'])) {
+            $totalQuantity = $this->applyComplexBonus($params, $totalQuantity);
+        }
 
         return ceil($totalQuantity * $params['runs']);
     }
@@ -201,14 +207,14 @@ class BlueprintController extends Controller
         array $returnMaterials
     ) {
         if (key_exists($materialName, $returnMaterials)) {
-            $returnMaterials[$materialName]['quantityInt'] += $quantity;
+            $returnMaterials[$materialName]['quantityFloat'] += $quantity;
             $returnMaterials[$materialName]['volumeInt'] += $volume;
 
             return $returnMaterials;
         } else {
             $returnMaterials[$materialName] = [
                 'name'        => $materialName,
-                'quantityInt' => $quantity,
+                'quantityFloat' => $quantity,
                 'volumeInt'   => $volume
             ];
 
@@ -241,10 +247,36 @@ class BlueprintController extends Controller
     protected function addNumberStrings(array $materials)
     {
         foreach ($materials as $name => $thisMaterial) {
-            $materials[$name]['quantity'] = number_format($thisMaterial['quantityInt']);
+            $materials[$name]['quantity'] = number_format($thisMaterial['quantityFloat']);
             $materials[$name]['volume']   = number_format($thisMaterial['volumeInt'], 2);
         }
 
         return $materials;
+    }
+
+    protected function applyComplexBonus(array $params, $quantity)
+    {
+        $securityStatus = $params['security_status'];
+        $bonus = 0;
+        if (isset($params['t1_rig']) && !isset($params['t2_rig'])) {
+            $bonus = 2;
+            if ($securityStatus === 'low_sec'){
+                $bonus = 3.8;
+            } elseif ($securityStatus === 'null') {
+                $bonus = 4.2;
+            }
+        } elseif (isset($params['t2_rig'])) {
+            $bonus = 2.4;
+            if ($securityStatus === 'low_sec'){
+                $bonus = 4.56;
+            } elseif ($securityStatus === 'null') {
+                $bonus = 5.04;
+            }
+        }
+
+        // Apply the industrial complex base bonus then add the rig bonus
+        $quantity = $quantity * self::INDUSTRIAL_COMPLEX_MODIFIER;
+        $quantity = $quantity * (1 - ($bonus / 100));
+        return $quantity;
     }
 }
