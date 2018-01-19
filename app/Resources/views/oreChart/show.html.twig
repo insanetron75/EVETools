@@ -1,12 +1,42 @@
 {% extends 'base.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('css/index/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/oreChart/style.css') }}">
 {% endblock %}
 {% block body %}
     <div id="wrapper">
         <div id="container">
-
+            <div id="welcome">
+                <h1>Ore Chart</h1>
+            </div>
+        </div>
+        <div id="ores" class="panel panel-default">
+            {% if ores is iterable %}
+                <table id="'min-table" class="table table-bordered">
+                    <caption>Ore | Minerals</caption>
+                    <tr>
+                        <th>Ore</th>
+                        {% for mineral in minerals %}
+                            <th>
+                                {{ mineral }}
+                            </th>
+                        {% endfor %}
+                        <th>
+                            Raw Isk/m3
+                        </th>
+                        <th>
+                            Refined Isk/m3
+                        </th>
+                    </tr>
+                    {% for ore in ores %}
+                        <tr>
+                            {% for value in ore %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

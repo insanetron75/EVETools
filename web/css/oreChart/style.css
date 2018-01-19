@@ -1,0 +1,23 @@
+.panel {
+    margin: 1% 1% 1% 1%;
+    float: left;
+    display: table-row;
+    border-radius: 25px;
+    background-color: grey;
+    overflow: auto;
+    font-size: x-small;
+}
+
+.panel {
+    background-color: grey;
+    display: table-row;
+}
+
+td {
+    color: white;;
+}
+
+caption {
+    color: black;
+    font-weight: bold;
+}
