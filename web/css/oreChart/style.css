@@ -1,11 +1,11 @@
-.panel {
-    margin: 1% 1% 1% 1%;
+/*.panel {
+    margin: 0 1% 0 1%;
     float: left;
     display: table-row;
     border-radius: 25px;
     background-color: grey;
     overflow: auto;
-    font-size: x-small;
+    font-size: small;
 }
 
 .panel {
@@ -20,4 +20,21 @@ td {
 caption {
     color: black;
     font-weight: bold;
+}
+
+.fa-sort {
+    padding-left: 1%;
+    cursor: pointer;
+}*/
+ .panel {
+     width: 80%;
+     background-color: grey;
+ }
+
+td {
+    color: white;
+}
+
+th {
+    background-color: white;
 }
