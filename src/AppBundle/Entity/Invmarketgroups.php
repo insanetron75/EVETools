@@ -56,6 +56,102 @@ class Invmarketgroups
      */
     private $marketgroupid;
 
+    /**
+     * @return int
+     */
+    public function getParentgroupid()
+    {
+        return $this->parentgroupid;
+    }
+
+    /**
+     * @param int $parentgroupid
+     */
+    public function setParentgroupid($parentgroupid)
+    {
+        $this->parentgroupid = $parentgroupid;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMarketgroupname()
+    {
+        return $this->marketgroupname;
+    }
+
+    /**
+     * @param string $marketgroupname
+     */
+    public function setMarketgroupname($marketgroupname)
+    {
+        $this->marketgroupname = $marketgroupname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIconid()
+    {
+        return $this->iconid;
+    }
+
+    /**
+     * @param int $iconid
+     */
+    public function setIconid($iconid)
+    {
+        $this->iconid = $iconid;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHastypes()
+    {
+        return $this->hastypes;
+    }
+
+    /**
+     * @param bool $hastypes
+     */
+    public function setHastypes($hastypes)
+    {
+        $this->hastypes = $hastypes;
+    }
+
+    /**
+     * @return int
+     */
+    public function getMarketgroupid()
+    {
+        return $this->marketgroupid;
+    }
+
+    /**
+     * @param int $marketgroupid
+     */
+    public function setMarketgroupid($marketgroupid)
+    {
+        $this->marketgroupid = $marketgroupid;
+    }
+
 
 }
 

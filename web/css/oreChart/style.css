@@ -1,0 +1,41 @@
+/*.panel {
+    margin: 0 1% 0 1%;
+    float: left;
+    display: table-row;
+    border-radius: 25px;
+    background-color: grey;
+    overflow: auto;
+    font-size: small;
+}
+
+.panel {
+    background-color: grey;
+    display: table-row;
+}
+
+td {
+    color: white;;
+}
+
+caption {
+    color: black;
+    font-weight: bold;
+}
+
+.fa-sort {
+    padding-left: 1%;
+    cursor: pointer;
+}*/
+ .panel {
+     width: 80%;
+     margin: auto;
+     background-color: grey;
+ }
+
+td {
+    color: white;
+}
+
+th {
+    background-color: white;
+}

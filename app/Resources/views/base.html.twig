@@ -18,15 +18,10 @@
             <ul class="topLinks .navbar-fixed-top">
                 <li><a href=" {{ path('home_page') }}">Home</a></li>
                 <li><a href="{{ path('blueprint_calculator') }}">Blueprint Calculator</a></li>
-                <li><a href="#">Ore Chart</a></li>
+                <li><a href="{{ path('ore_chart') }}">Ore Chart</a></li>
             </ul>
         </nav>
     {% endblock %}
     {% block body %}{% endblock %}
-    {% block footer %}
-        <div class="footer">
-            <p class="footer-text">Made By T.Hasler<br><a href="http://www.linkedin.com/in/timothy-hasler">LinkedIn</a></p>
-        </div>
-    {% endblock %}
     </body>
 </html>
