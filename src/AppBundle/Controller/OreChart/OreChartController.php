@@ -11,10 +11,11 @@ namespace AppBundle\Controller\OreChart;
 use AppBundle\Entity\Invmarketgroups;
 use AppBundle\Entity\Invtypes;
 use AppBundle\Entity\OreRefineAmounts;
-use AppBundle\Entity\Region;
+use AppBundle\Form\OreForm;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class OreChartController extends Controller
 {
@@ -26,25 +27,30 @@ class OreChartController extends Controller
 
     /**
      * @Route("/oreChart", name="ore_chart")
+     * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function showAction()
+    public function showAction(Request $request)
     {
+        $form          = $this->createForm(OreForm::class);
         $objectManager = $this->getDoctrine()->getManager();
         $ores          = $this->getOres($objectManager);
         $minerals      = $this->getMinerals($objectManager);
         $ores          = $this->addMineralsToOre($ores, $minerals);
 
-        $this->setSelectedRegion('The Forge');
-        $ores          = $this->addRawIsk($ores, $objectManager);
-        $ores          = $this->addRefinedIsk($ores, $objectManager);
+        $params = $request->request->get('ore_form');
+        $this->setSelectedRegion($params['region_id']);
+        $ores = $this->addRawIsk($ores, $objectManager);
+        $ores = $this->addRefinedIsk($ores, $objectManager);
 
         return $this->render(
             'oreChart/show.html.twig',
             [
+                'form'     => $form->createView(),
                 'ores'     => $ores,
-                'minerals' => $minerals
+                'minerals' => $minerals,
+                'regionId' => $this->selectedRegionId
             ]
         );
     }
@@ -99,7 +105,7 @@ class OreChartController extends Controller
         $minerals = [];
         foreach ($mineralMarketGroups as $thisType) {
             $minerals[] = [
-                'name'  => $thisType->getTypename(),
+                'name' => $thisType->getTypename(),
             ];
         }
 
@@ -151,7 +157,7 @@ class OreChartController extends Controller
             $oreType            = $objectManager->getRepository(Invtypes::class)->findOneBy(
                 ['typename' => $name, 'published' => 1]
             );
-            $rawIsk = ($this->getItemPrice($oreType) / $oreType->getVolume());
+            $rawIsk             = ($this->getItemPrice($oreType) / $oreType->getVolume());
             $ores[$name]['raw'] = number_format($rawIsk, 2);
         }
 
@@ -162,10 +168,10 @@ class OreChartController extends Controller
     {
         foreach ($ores as $name => $minerals) {
             /** @var Invtypes $oreType */
-            $oreType = $objectManager->getRepository(Invtypes::class)->findOneBy(
+            $oreType                = $objectManager->getRepository(Invtypes::class)->findOneBy(
                 ['typename' => $name, 'published' => 1]
             );
-            $refinedIsk = $this->calculateRefinedIsk($minerals, $oreType, $objectManager);
+            $refinedIsk             = $this->calculateRefinedIsk($minerals, $oreType, $objectManager);
             $ores[$name]['refined'] = number_format($refinedIsk, 2);
         }
 
@@ -202,15 +208,12 @@ class OreChartController extends Controller
             $amountPerM3 = $quantity / $oreType->getPortionsize() / $oreType->getVolume();
             $total += ($this->getItemPrice($mineralType) * $amountPerM3);
         }
+
         return $total;
     }
 
-    protected function setSelectedRegion($regionName = 'The Forge') {
-        /** @var Region $region */
-        $region = $this->getDoctrine()->getRepository(Region::class)->findOneBy([
-            'name' => $regionName
-        ]);
-
-        $this->selectedRegionId = $region->getId();
+    protected function setSelectedRegion($regionId = 10000002)
+    {
+        $this->selectedRegionId = $regionId;
     }
 }
