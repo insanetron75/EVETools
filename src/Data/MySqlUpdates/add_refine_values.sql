@@ -80,7 +80,7 @@ INSERT INTO ore_refine_amounts (oreTypeId, mineralTypeId, quantity)
         (@ArkonorId, @megcyteId, 320),
         (@SpodumainId, @tritaniumId, 56000),
         (@SpodumainId, @pyriteId, 12050),
-        (@SpodumainId, @megcyteId, 2100),
+        (@SpodumainId, @mexallonId, 2100),
         (@SpodumainId, @isogenId, 450),
         (@MercoxitId, @morphiteId, 300);
 
