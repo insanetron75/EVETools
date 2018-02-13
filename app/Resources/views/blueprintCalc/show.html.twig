@@ -54,7 +54,7 @@
             </div>
             <div id="components" class="panel panel-default">
                 <table id="comp-table" class="table table-bordered">
-                    {% if results['components'] is iterable %}
+                    {% if results['components'] is iterable and results['components'] is not empty%}
                         <caption>Components Table</caption>
                         <tr>
                             <th>Component Name</th>
